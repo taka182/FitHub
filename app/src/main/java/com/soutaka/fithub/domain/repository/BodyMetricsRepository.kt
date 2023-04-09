@@ -1,9 +1,10 @@
 package com.soutaka.fithub.domain.repository
 
 import com.soutaka.fithub.domain.model.BodyMetrics
+import kotlinx.coroutines.flow.Flow
 
 interface BodyMetricsRepository {
-    fun getBodyMetrics(): List<BodyMetrics>
+    fun getBodyMetrics(): Flow<List<BodyMetrics>>
 
     fun updateBodyMetrics(bodyMetrics: BodyMetrics)
 
