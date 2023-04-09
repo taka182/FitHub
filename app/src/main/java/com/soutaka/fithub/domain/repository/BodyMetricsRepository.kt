@@ -7,7 +7,7 @@ interface BodyMetricsRepository {
 
     fun updateBodyMetrics(bodyMetrics: BodyMetrics)
 
-    fun addBodyMatrics(bodyMetrics: BodyMetrics)
+    fun addBodyMetrics(bodyMetrics: BodyMetrics)
 
-    fun deleteBodyMatrics(bodyMetrics: BodyMetrics)
+    fun deleteBodyMetrics(bodyMetrics: BodyMetrics)
 }
