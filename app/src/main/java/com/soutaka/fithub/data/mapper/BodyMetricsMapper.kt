@@ -11,3 +11,12 @@ fun BodyMetricsEntity.toBodyMetrics(): BodyMetrics {
         createdAt = createdAt
     )
 }
+
+fun BodyMetrics.toBodyMetrics(): BodyMetricsEntity {
+    return BodyMetricsEntity(
+        id = id,
+        height = height,
+        weight = weight,
+        createdAt = createdAt
+    )
+}
