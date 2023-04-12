@@ -16,15 +16,15 @@ class BodyMetricsRepositoryImpl(
         }
     }
 
-    override fun updateBodyMetrics(bodyMetrics: BodyMetrics) {
-        TODO("Not yet implemented")
+    override suspend fun updateBodyMetrics(bodyMetrics: BodyMetrics) {
+        return bodyMetricsDao.updateBodyMetrics(bodyMetrics.toBodyMetrics())
     }
 
-    override fun addBodyMetrics(bodyMetrics: BodyMetrics) {
-        TODO("Not yet implemented")
+    override suspend fun addBodyMetrics(bodyMetrics: BodyMetrics) {
+        return bodyMetricsDao.insertBodyMetrics(bodyMetrics.toBodyMetrics())
     }
 
-    override fun deleteBodyMetrics(bodyMetrics: BodyMetrics) {
-        TODO("Not yet implemented")
+    override suspend fun deleteBodyMetrics(bodyMetrics: BodyMetrics) {
+        return bodyMetricsDao.deleteBodyMetrics(bodyMetrics.toBodyMetrics())
     }
 }
