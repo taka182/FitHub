@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.Flow
 interface BodyMetricsRepository {
     fun getBodyMetrics(): Flow<List<BodyMetrics>>
 
-    fun updateBodyMetrics(bodyMetrics: BodyMetrics)
+    suspend fun updateBodyMetrics(bodyMetrics: BodyMetrics)
 
-    fun addBodyMetrics(bodyMetrics: BodyMetrics)
+    suspend fun addBodyMetrics(bodyMetrics: BodyMetrics)
 
-    fun deleteBodyMetrics(bodyMetrics: BodyMetrics)
+    suspend fun deleteBodyMetrics(bodyMetrics: BodyMetrics)
 }
