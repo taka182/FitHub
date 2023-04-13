@@ -1,4 +1,4 @@
-package com.soutaka.fithub.data.local
+package com.soutaka.fithub.data.local.converter
 
 import androidx.room.TypeConverter
 import java.time.LocalDate

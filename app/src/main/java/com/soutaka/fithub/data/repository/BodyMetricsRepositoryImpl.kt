@@ -1,6 +1,6 @@
 package com.soutaka.fithub.data.repository
 
-import com.soutaka.fithub.data.local.BodyMetricsDao
+import com.soutaka.fithub.data.local.dao.BodyMetricsDao
 import com.soutaka.fithub.data.mapper.toBodyMetrics
 import com.soutaka.fithub.domain.model.BodyMetrics
 import com.soutaka.fithub.domain.repository.BodyMetricsRepository

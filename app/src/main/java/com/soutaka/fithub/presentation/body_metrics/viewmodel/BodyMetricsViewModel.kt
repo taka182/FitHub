@@ -1,4 +1,4 @@
-package com.soutaka.fithub.presentation.body_metrics
+package com.soutaka.fithub.presentation.body_metrics.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
