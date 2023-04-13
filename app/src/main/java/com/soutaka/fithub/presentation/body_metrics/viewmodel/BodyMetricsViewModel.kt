@@ -2,6 +2,7 @@ package com.soutaka.fithub.presentation.body_metrics.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,6 +17,7 @@ class BodyMetricsViewModel @Inject constructor(
     private val repository: BodyMetricsRepository
 ) : ViewModel() {
     var bodyMetrics: List<BodyMetrics> by mutableStateOf(emptyList())
+    var isShowDialog by  mutableStateOf(false)
 
     init {
         getBodyMetrics()

@@ -1,6 +1,11 @@
 package com.soutaka.fithub.presentation.body_metrics
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.NoteAdd
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -11,7 +16,17 @@ import com.soutaka.fithub.presentation.body_metrics.viewmodel.BodyMetricsViewMod
 fun BodyMetricsScreen(
     viewModel: BodyMetricsViewModel = hiltViewModel(),
 ) {
-    BodyMetricsEditDialog()
+    if (viewModel.isShowDialog){
+        BodyMetricsEditDialog()
+    }
+
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onClick = { viewModel.isShowDialog = true }) {
+                Icon(imageVector = Icons.Default.NoteAdd, contentDescription = "体重記録")
+            }
+        }){
+}
 
     Column() {
         Text(text = viewModel.bodyMetrics.firstOrNull()?.id.toString())
