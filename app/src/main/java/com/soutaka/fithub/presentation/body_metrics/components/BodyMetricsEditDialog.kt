@@ -12,15 +12,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BodyMetricsEditDialog(
 ) {
     var isShowDialog by remember { mutableStateOf(false) }
     var onDismissRequest = { isShowDialog = false }
 
-    AlertDialog(
+    Dialog(
         onDismissRequest = { onDismissRequest }) {
         Box(
             modifier = Modifier
