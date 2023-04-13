@@ -28,6 +28,4 @@ class BodyMetricsViewModel @Inject constructor(
             }
         }
     }
-
-
 }
