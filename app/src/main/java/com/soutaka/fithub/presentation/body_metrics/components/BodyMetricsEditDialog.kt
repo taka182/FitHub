@@ -13,15 +13,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.soutaka.fithub.presentation.body_metrics.viewmodel.BodyMetricsViewModel
 
 @Composable
 fun BodyMetricsEditDialog(
+    viewModel: BodyMetricsViewModel = hiltViewModel()
 ) {
-    var isShowDialog by remember { mutableStateOf(false) }
-    var onDismissRequest = { isShowDialog = false }
-
     Dialog(
-        onDismissRequest = { onDismissRequest }) {
+        onDismissRequest = { viewModel.isShowDialog = false }) {
         Box(
             modifier = Modifier
                 .size(350.dp)
