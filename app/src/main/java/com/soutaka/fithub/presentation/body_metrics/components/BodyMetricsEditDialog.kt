@@ -4,8 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,11 +19,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.soutaka.fithub.presentation.body_metrics.viewmodel.BodyMetricsViewModel
+import java.time.LocalDate
 
 @Composable
 fun BodyMetricsEditDialog(
     viewModel: BodyMetricsViewModel = hiltViewModel()
 ) {
+    val heightState = remember { mutableStateOf("") }
+    val weightState = remember { mutableStateOf("") }
+
     Dialog(
         onDismissRequest = { viewModel.isShowDialog = false }) {
         Box(
@@ -35,16 +43,15 @@ fun BodyMetricsEditDialog(
                 modifier = Modifier
                     .background(Color.White)
             ) {
-                val heightState = remember { mutableStateOf("") }
-                val weightState = remember { mutableStateOf("") }
-
+                Text(text = "記録登録")
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(text = LocalDate.now().toString())
                 PinkLabelTextField(
                     value = heightState.value,
                     onValueChange = { newtext -> heightState.value = newtext },
                     label = "身長(cm)",
                     placeholder = "170"
                 )
-
                 Spacer(modifier = Modifier.height(16.dp))
                 Spacer(modifier = Modifier.width(10.dp))
                 PinkLabelTextField(
@@ -71,7 +78,7 @@ fun BodyMetricsEditDialog(
                     Button(
                         modifier = Modifier.width(120.dp),
                         onClick = {
-
+//                                  viewModel.addBodyMetrics()
                         },
                     ) {
                         Text(text = "OK")
