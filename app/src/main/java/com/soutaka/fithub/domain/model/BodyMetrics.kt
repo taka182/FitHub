@@ -5,8 +5,8 @@ import kotlin.math.pow
 
 data class BodyMetrics(
     val id: Int,
-    var height: Double,
-    var weight: Double,
+    val height: Double,
+    val weight: Double,
     val createdAt: LocalDate
 )
 
