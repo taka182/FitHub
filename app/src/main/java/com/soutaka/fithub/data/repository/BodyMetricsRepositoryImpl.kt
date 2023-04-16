@@ -8,12 +8,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class BodyMetricsRepositoryImpl(
-  val bodyMetricsDao: BodyMetricsDao
-) : BodyMetricsRepository{
-    override fun getBodyMetrics(): Flow<List<BodyMetrics>>{
-        return bodyMetricsDao.loadAllBodyMetrics().map { bodyMetricsEntities ->
-            bodyMetricsEntities.map { it.toBodyMetrics() }
-        }
+    private val bodyMetricsDao: BodyMetricsDao
+) : BodyMetricsRepository {
+
+    override fun getBodyMetrics(): Flow<List<BodyMetrics>> {
+        return bodyMetricsDao.loadAllBodyMetrics().map { it.toBodyMetrics() }
     }
 
     override suspend fun updateBodyMetrics(bodyMetrics: BodyMetrics) {
