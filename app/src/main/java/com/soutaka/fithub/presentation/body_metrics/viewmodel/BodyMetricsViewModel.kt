@@ -7,8 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.soutaka.fithub.domain.model.BodyMetrics
 import com.soutaka.fithub.domain.repository.BodyMetricsRepository
+import com.soutaka.fithub.presentation.body_metrics.DialogState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,14 +36,43 @@ class BodyMetricsViewModel @Inject constructor(
         }
     }
 
-//    fun addBodyMetrics() {
-//        viewModelScope.launch {
-//            val newBody = BodyMetrics(
-//                height = height.toDouble(),
-//                weight = weight.toDouble(),
-//                createdAt = LocalDate.now(),
-//            )
-//            repository.addBodyMetrics(newBody)
-//        }
-//    }
+    fun addBodyMetrics(height: String, weight: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val newBody = BodyMetrics(
+                id = 0,
+                height = height.toDoubleOrNull() ?: 0.0,
+                weight = weight.toDoubleOrNull() ?: 0.0,
+                createdAt = LocalDate.now(),
+            )
+            repository.addBodyMetrics(newBody)
+        }
+    }
+
+    fun deleteBodyMetrics(bodyMetrics: BodyMetrics) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteBodyMetrics(bodyMetrics)
+        }
+    }
+
+    fun updateBodyMetrics(bodyMetrics: BodyMetrics, height: String, weight: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val updatedBodyMetrics = bodyMetrics.copy(
+                height = height.toDoubleOrNull() ?: 0.0,
+                weight = weight.toDoubleOrNull() ?: 0.0
+            )
+            repository.updateBodyMetrics(updatedBodyMetrics)
+        }
+    }
+
+    fun closeDialog() {
+        dialogState = DialogState.Close
+    }
+
+    fun showEditDialog(bodyMetrics: BodyMetrics) {
+        dialogState = DialogState.Edit(bodyMetrics)
+    }
+
+    fun showAddDialog() {
+        dialogState = DialogState.Add
+    }
 }
