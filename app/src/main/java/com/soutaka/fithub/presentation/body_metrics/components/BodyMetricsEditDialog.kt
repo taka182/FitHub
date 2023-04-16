@@ -23,13 +23,14 @@ import java.time.LocalDate
 
 @Composable
 fun BodyMetricsEditDialog(
-    viewModel: BodyMetricsViewModel = hiltViewModel()
+    viewModel: BodyMetricsViewModel = hiltViewModel(),
+    dialogState: DialogState = DialogState.Close
 ) {
     val heightState = remember { mutableStateOf("") }
     val weightState = remember { mutableStateOf("") }
 
     Dialog(
-        onDismissRequest = { viewModel.isShowDialog = false }) {
+        onDismissRequest = { viewModel.closeDialog() }) {
         Box(
             modifier = Modifier
                 .size(350.dp)
