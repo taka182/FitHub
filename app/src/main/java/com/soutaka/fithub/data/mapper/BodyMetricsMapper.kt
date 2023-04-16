@@ -12,6 +12,10 @@ fun BodyMetricsEntity.toBodyMetrics(): BodyMetrics {
     )
 }
 
+fun List<BodyMetricsEntity>.toBodyMetrics(): List<BodyMetrics> {
+    return this.map { it.toBodyMetrics() }
+}
+
 fun BodyMetrics.toBodyMetrics(): BodyMetricsEntity {
     return BodyMetricsEntity(
         id = id,
