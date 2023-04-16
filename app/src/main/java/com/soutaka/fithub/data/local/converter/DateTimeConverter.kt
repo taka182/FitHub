@@ -10,7 +10,7 @@ class DateTimeConverter {
     }
 
     @TypeConverter
-    fun dateToTimestamp(localdate: LocalDate?): Long? {
-        return localdate?.toEpochDay()
+    fun dateToTimestamp(localDate: LocalDate?): Long? {
+        return localDate?.toEpochDay()
     }
 }
