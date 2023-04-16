@@ -19,15 +19,17 @@ object AppModule {
     @Singleton
     fun provideDatabase(
         @ApplicationContext context: Context
-    ) = Room.databaseBuilder(context, FithubDatabase::class.java, "fithub_database").build()
-
-//    @Provides
-//    @Singleton
-//    fun bodyMetricsDao(db: FithubDatabase) = db.bodyMetricsDao()
+    ): FithubDatabase {
+        return Room.databaseBuilder(
+            context,
+            FithubDatabase::class.java,
+            "fithub_database"
+        ).build()
+    }
 
     @Provides
     @Singleton
-    fun bodyMetricsRepository(db: FithubDatabase) : BodyMetricsRepository {
+    fun bodyMetricsRepository(db: FithubDatabase): BodyMetricsRepository {
         return BodyMetricsRepositoryImpl(db.bodyMetricsDao())
     }
 }
