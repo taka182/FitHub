@@ -16,16 +16,17 @@ class BodyMetricsViewModel @Inject constructor(
     private val repository: BodyMetricsRepository
 ) : ViewModel() {
     var bodyMetrics: List<BodyMetrics> by mutableStateOf(emptyList())
-    var height by mutableStateOf("")
-    var weight by mutableStateOf("")
-    var isShowDialog by mutableStateOf(false)
+        private set
+
+    var dialogState: DialogState by mutableStateOf(DialogState.Close)
+        private set
 
     init {
         getBodyMetrics()
     }
 
-    fun getBodyMetrics() {
-        viewModelScope.launch {
+    private fun getBodyMetrics() {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.getBodyMetrics().collect {
                 bodyMetrics = it
             }
