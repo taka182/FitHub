@@ -13,6 +13,8 @@ import androidx.compose.ui.unit.dp
 import com.soutaka.fithub.R
 import com.soutaka.fithub.domain.model.BodyMetrics
 import com.soutaka.fithub.domain.model.bmi
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 @Composable
 fun BodyMetricsItem(
@@ -40,7 +42,11 @@ fun BodyMetricsItem(
                     modifier = Modifier,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = stringResource(R.string.date) + bodyMetricsItem.createdAt)
+                    Text(
+                        text = stringResource(R.string.date) + bodyMetricsItem.createdAt.format(
+                            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+                        )
+                    )
                     IconButton(onClick = {
                         onClickDelete(bodyMetricsItem)
                     }) {

@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,6 +23,8 @@ import com.soutaka.fithub.R
 import com.soutaka.fithub.presentation.body_metrics.DialogState
 import com.soutaka.fithub.presentation.body_metrics.viewmodel.BodyMetricsViewModel
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 @Composable
 fun BodyMetricsEditDialog(
@@ -39,6 +43,7 @@ fun BodyMetricsEditDialog(
             else ""
         )
     }
+    val currentDate = LocalDate.now()
 
     Dialog(
         onDismissRequest = { viewModel.closeDialog() }) {
@@ -70,7 +75,10 @@ fun BodyMetricsEditDialog(
                     else ""
                 }
                 Spacer(modifier = Modifier.height(10.dp))
-                Text(text = LocalDate.now().toString())
+                Text(
+                    text = currentDate
+                        .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
+                )
                 PinkLabelTextField(
                     value = height,
                     onValueChange = { newText -> height = newText },
@@ -97,8 +105,8 @@ fun BodyMetricsEditDialog(
                             viewModel.closeDialog()
                         },
                     ) {
-                        Text(text = stringResource(R.string.close_btn))
                         Icon(imageVector = Icons.Default.Close, contentDescription = "閉じる")
+                        Text(text = stringResource(R.string.close_btn))
                     }
                     Spacer(modifier = Modifier.width(10.dp))
                     Button(
@@ -112,8 +120,8 @@ fun BodyMetricsEditDialog(
                             }
                         },
                     ) {
-                        Text(text = stringResource(R.string.ok_btn))
                         Icon(imageVector = Icons.Default.Check, contentDescription = "追加")
+                        Text(text = stringResource(R.string.ok_btn))
                     }
                 }
             }
