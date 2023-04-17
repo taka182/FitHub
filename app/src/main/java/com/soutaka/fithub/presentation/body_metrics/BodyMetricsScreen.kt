@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.soutaka.fithub.R
+import com.soutaka.fithub.domain.model.BodyMetrics
 import com.soutaka.fithub.presentation.body_metrics.components.BodyMetricsEditDialog
 import com.soutaka.fithub.presentation.body_metrics.components.BodyMetricsList
 import com.soutaka.fithub.presentation.body_metrics.viewmodel.BodyMetricsViewModel

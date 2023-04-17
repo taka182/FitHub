@@ -4,10 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,7 +25,7 @@ import java.time.LocalDate
 @Composable
 fun BodyMetricsEditDialog(
     viewModel: BodyMetricsViewModel = hiltViewModel(),
-    dialogState: DialogState = DialogState.Close
+    dialogState: DialogState = DialogState.Close,
 ) {
     var height by remember {
         mutableStateOf(
@@ -54,11 +53,22 @@ fun BodyMetricsEditDialog(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
-                Text(
-                    text = if (dialogState is DialogState.Edit) stringResource(R.string.record_update) else stringResource(
-                        R.string.record_add
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = if (dialogState is DialogState.Edit) stringResource(R.string.record_update) else stringResource(
+                            R.string.record_add
+                        )
                     )
-                )
+                    if (dialogState is DialogState.Edit)
+                        IconButton(onClick = {
+                            //To do
+                        }) {
+                            Icon(imageVector = Icons.Default.Delete, contentDescription = "削除")
+                        }
+                    else ""
+                }
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(text = LocalDate.now().toString())
                 PinkLabelTextField(
@@ -88,6 +98,7 @@ fun BodyMetricsEditDialog(
                         },
                     ) {
                         Text(text = stringResource(R.string.close_btn))
+                        Icon(imageVector = Icons.Default.Close, contentDescription = "閉じる")
                     }
                     Spacer(modifier = Modifier.width(10.dp))
                     Button(
@@ -102,6 +113,7 @@ fun BodyMetricsEditDialog(
                         },
                     ) {
                         Text(text = stringResource(R.string.ok_btn))
+                        Icon(imageVector = Icons.Default.Check, contentDescription = "追加")
                     }
                 }
             }

@@ -32,7 +32,6 @@ fun BodyMetricsList(
                     onClickDelete = onClickDelete
                 )
             }
-
         }
     }
 }
