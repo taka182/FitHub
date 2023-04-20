@@ -3,7 +3,7 @@ package com.soutaka.fithub.presentation.body_metrics.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.WaterDrop
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -51,7 +51,7 @@ fun BodyMetricsItem(
                     IconButton(onClick = {
                         onClickDelete(bodyMetricsItem)
                     }) {
-                        Icon(imageVector = Icons.Default.Delete, contentDescription = "削除")
+                        Icon(imageVector = Icons.Default.WaterDrop, contentDescription = "削除")
                     }
                 }
                 Divider(modifier = Modifier.padding(vertical = 7.dp))
