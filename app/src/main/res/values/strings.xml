@@ -10,4 +10,7 @@
     <string name="date">日付:</string>
     <string name="bmi">bmi</string>
     <string name="no_data">表示可能なデータがありません</string>
+    <string name="navigation_body_metrics_label">記録</string>
+    <string name="navigation_profile_label">プロフィール</string>
+    <string name="body_metrics_toast_text">値を入力してください！！</string>
 </resources>
