@@ -47,6 +47,7 @@ fun BodyMetricsItem(
                             DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
                         )
                     )
+                    Spacer(modifier = Modifier.width(150.dp))
                     IconButton(onClick = {
                         onClickDelete(bodyMetricsItem)
                     }) {
