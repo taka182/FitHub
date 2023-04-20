@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.soutaka.fithub.data.local.FithubDatabase
 import com.soutaka.fithub.data.repository.BodyMetricsRepositoryImpl
+import com.soutaka.fithub.data.repository.UserRepositoryImpl
 import com.soutaka.fithub.domain.repository.BodyMetricsRepository
+import com.soutaka.fithub.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,5 +33,11 @@ object AppModule {
     @Singleton
     fun bodyMetricsRepository(db: FithubDatabase): BodyMetricsRepository {
         return BodyMetricsRepositoryImpl(db.bodyMetricsDao())
+    }
+
+    @Provides
+    @Singleton
+    fun userRepository(db: FithubDatabase): UserRepository {
+        return UserRepositoryImpl(db.userDao())
     }
 }
