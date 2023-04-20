@@ -1,7 +1,20 @@
 package com.soutaka.fithub.presentation.profile
 
-import android.provider.ContactsContract.Profile
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 
-fun ProfileScreen() {
+@Composable
+fun ProfileScreen(
 
+) {
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) {
+
+    }
 }
