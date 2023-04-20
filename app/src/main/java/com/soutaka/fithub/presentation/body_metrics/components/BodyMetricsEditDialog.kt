@@ -1,5 +1,6 @@
 package com.soutaka.fithub.presentation.body_metrics.components
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -44,6 +46,7 @@ fun BodyMetricsEditDialog(
         )
     }
     val currentDate = LocalDate.now()
+    val context = LocalContext.current
 
     Dialog(
         onDismissRequest = { viewModel.closeDialog() }) {
@@ -116,7 +119,15 @@ fun BodyMetricsEditDialog(
                             if (dialogState is DialogState.Edit) {
                                 viewModel.updateBodyMetrics(dialogState.bodyMetrics, height, weight)
                             } else {
-                                viewModel.addBodyMetrics(height, weight)
+                                if (height == "," || height == ""|| weight == "," || weight == "") {
+                                    Toast.makeText(
+                                        context,
+                                        R.string.body_metrics_toast_text,
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                } else {
+                                    viewModel.addBodyMetrics(height, weight)
+                                }
                             }
                         },
                     ) {
