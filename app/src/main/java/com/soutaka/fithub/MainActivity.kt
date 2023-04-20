@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.soutaka.fithub.presentation.body_metrics.BodyMetricsScreen
+import com.soutaka.fithub.presentation.navigation.FithubNavGraph
 import com.soutaka.fithub.ui.theme.FitHubTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,12 +17,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FitHubTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    BodyMetricsScreen()
+                    FithubNavGraph()
                 }
             }
         }
