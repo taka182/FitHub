@@ -8,7 +8,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -70,11 +69,6 @@ fun BodyMetricsEditDialog(
                         )
                     )
                     if (dialogState is DialogState.Edit)
-                        IconButton(onClick = {
-                            //To do
-                        }) {
-                            Icon(imageVector = Icons.Default.Delete, contentDescription = "削除")
-                        }
                     else ""
                 }
                 Spacer(modifier = Modifier.height(10.dp))
@@ -84,7 +78,15 @@ fun BodyMetricsEditDialog(
                 )
                 PinkLabelTextField(
                     value = height,
-                    onValueChange = { newText -> height = newText },
+                    onValueChange = {
+                        if (it.contains("-") ||
+                            it.contains(",") ||
+                            it.contains(" ")
+                        ) {
+                            return@PinkLabelTextField
+                        }
+                        height = it
+                    },
                     label = stringResource(R.string.height),
                     placeholder = "170"
                 )
@@ -92,7 +94,15 @@ fun BodyMetricsEditDialog(
                 Spacer(modifier = Modifier.width(10.dp))
                 PinkLabelTextField(
                     value = weight,
-                    onValueChange = { newText -> weight = newText },
+                    onValueChange = {
+                        if (it.contains("-") ||
+                            it.contains(",") ||
+                            it.contains(" ")
+                        ) {
+                            return@PinkLabelTextField
+                        }
+                        weight = it
+                    },
                     label = stringResource(R.string.weight),
                     placeholder = "65"
                 )
@@ -119,7 +129,12 @@ fun BodyMetricsEditDialog(
                             if (dialogState is DialogState.Edit) {
                                 viewModel.updateBodyMetrics(dialogState.bodyMetrics, height, weight)
                             } else {
-                                if (height == "," || height == ""|| weight == "," || weight == "") {
+                                if (height.replace("0", "") == "" ||
+                                    height.replace(".", "") == "" ||
+                                    weight.replace("0", "") == "" ||
+                                    weight.replace(".", "") == "" ||
+                                    height.isNullOrBlank() || weight.isNullOrBlank()
+                                ) {
                                     Toast.makeText(
                                         context,
                                         R.string.body_metrics_toast_text,
