@@ -89,4 +89,7 @@ dependencies {
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+    // UI
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.28.0"
 }
