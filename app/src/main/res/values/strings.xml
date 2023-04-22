@@ -12,5 +12,7 @@
     <string name="no_data">表示可能なデータがありません</string>
     <string name="navigation_body_metrics_label">記録</string>
     <string name="navigation_profile_label">プロフィール</string>
-    <string name="body_metrics_text">数値を入力してください！！</string>
+    <string name="body_metrics_text_symbol">数値を入力してください！！</string>
+    <string name="body_metrics_text_min">0より大きい値を入力してください!!</string>
+    <string name="body_metrics_text_over">500より小さい値を入力してください!!</string>
 </resources>
