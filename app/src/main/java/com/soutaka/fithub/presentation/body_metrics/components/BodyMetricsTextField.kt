@@ -21,6 +21,7 @@ fun PinkLabelTextField(
     label: String,
     placeholder: String,
     isError: Boolean,
+    errorMessage: String? = null
 ) {
     Column {
         Text(
@@ -37,7 +38,7 @@ fun PinkLabelTextField(
             isError = isError,
             supportingText = {
                 if (isError) {
-                    Text(text = stringResource(R.string.body_metrics_text))
+                    Text(text = errorMessage ?: "")
                 }
             },
             trailingIcon = {

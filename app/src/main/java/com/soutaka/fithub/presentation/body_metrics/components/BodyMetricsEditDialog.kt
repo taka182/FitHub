@@ -80,7 +80,8 @@ fun BodyMetricsEditDialog(
                     },
                     isError = viewModel.heightError,
                     label = stringResource(R.string.height),
-                    placeholder = "170"
+                    placeholder = "170",
+                    errorMessage = viewModel.heightErrorMessage?.let { stringResource(it) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Spacer(modifier = Modifier.width(10.dp))
@@ -92,7 +93,8 @@ fun BodyMetricsEditDialog(
                     },
                     isError = viewModel.weightError,
                     label = stringResource(R.string.weight),
-                    placeholder = "65"
+                    placeholder = "65",
+                    errorMessage = viewModel.weightErrorMessage?.let { stringResource(it) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(

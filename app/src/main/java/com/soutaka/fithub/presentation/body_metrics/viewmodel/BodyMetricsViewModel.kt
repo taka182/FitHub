@@ -26,6 +26,8 @@ class BodyMetricsViewModel @Inject constructor(
         private set
 
     var heightError by mutableStateOf(false)
+    var heightErrorMessage: Int? by mutableStateOf(null)
+
     var weightError by mutableStateOf(false)
     var weightErrorMessage: Int? by mutableStateOf(null)
 
