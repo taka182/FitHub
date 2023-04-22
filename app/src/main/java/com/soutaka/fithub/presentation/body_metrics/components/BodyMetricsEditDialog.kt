@@ -1,6 +1,5 @@
 package com.soutaka.fithub.presentation.body_metrics.components
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -77,14 +76,10 @@ fun BodyMetricsEditDialog(
                 PinkLabelTextField(
                     value = height,
                     onValueChange = {
-                        if (it.contains("-") ||
-                            it.contains(",") ||
-                            it.contains(" ")
-                        ) {
-                            return@PinkLabelTextField
-                        }
                         height = it
+                        viewModel.validateHeight(height)
                     },
+                    isError = viewModel.heightError,
                     label = stringResource(R.string.height),
                     placeholder = "170"
                 )
@@ -93,14 +88,10 @@ fun BodyMetricsEditDialog(
                 PinkLabelTextField(
                     value = weight,
                     onValueChange = {
-                        if (it.contains("-") ||
-                            it.contains(",") ||
-                            it.contains(" ")
-                        ) {
-                            return@PinkLabelTextField
-                        }
                         weight = it
+                        viewModel.validateWeight(weight)
                     },
+                    isError = viewModel.weightError,
                     label = stringResource(R.string.weight),
                     placeholder = "65"
                 )
@@ -123,22 +114,14 @@ fun BodyMetricsEditDialog(
                     Button(
                         modifier = Modifier.width(120.dp),
                         onClick = {
-                            viewModel.closeDialog()
                             if (dialogState is DialogState.Edit) {
+                                viewModel.closeDialog()
                                 viewModel.updateBodyMetrics(dialogState.bodyMetrics, height, weight)
                             } else {
-                                if (height.replace("0", "") == "" ||
-                                    height.replace(".", "") == "" ||
-                                    weight.replace("0", "") == "" ||
-                                    weight.replace(".", "") == "" ||
-                                    height.isNullOrBlank() || weight.isNullOrBlank()
-                                ) {
-                                    Toast.makeText(
-                                        context,
-                                        R.string.body_metrics_toast_text,
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                } else {
+                                viewModel.validateHeight(height)
+                                viewModel.validateWeight(weight)
+                                if (!viewModel.heightError && !viewModel.weightError) {
+                                    viewModel.closeDialog()
                                     viewModel.addBodyMetrics(height, weight)
                                 }
                             }
@@ -159,6 +142,7 @@ fun PinkLabelTextField(
     onValueChange: (String) -> Unit,
     label: String,
     placeholder: String,
+    isError: Boolean,
 ) {
     Column {
         Text(
@@ -172,6 +156,12 @@ fun PinkLabelTextField(
             modifier = Modifier.fillMaxWidth(),
             value = value,
             onValueChange = onValueChange,
+            isError = isError,
+            supportingText = {
+                if (isError) {
+                    Text(text = stringResource(R.string.body_metrics_text))
+                }
+            },
             placeholder =
             {
                 Text(text = placeholder)
@@ -181,6 +171,8 @@ fun PinkLabelTextField(
         )
     }
 }
+
+
 
 
 

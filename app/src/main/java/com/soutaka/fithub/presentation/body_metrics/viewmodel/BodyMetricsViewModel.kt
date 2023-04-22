@@ -2,6 +2,7 @@ package com.soutaka.fithub.presentation.body_metrics.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,6 +24,9 @@ class BodyMetricsViewModel @Inject constructor(
 
     var dialogState: DialogState by mutableStateOf(DialogState.Close)
         private set
+
+    var heightError by  mutableStateOf(false)
+    var weightError by mutableStateOf(false)
 
     init {
         getBodyMetrics()
@@ -74,5 +78,14 @@ class BodyMetricsViewModel @Inject constructor(
 
     fun showAddDialog() {
         dialogState = DialogState.Add
+    }
+
+
+    fun validateHeight(height: String) {
+        heightError = height.toDoubleOrNull() == null
+    }
+
+    fun validateWeight(weight: String) {
+        weightError = weight.toDoubleOrNull() == null
     }
 }
