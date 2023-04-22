@@ -68,8 +68,6 @@ fun BodyMetricsEditDialog(
                             R.string.record_add
                         )
                     )
-                    if (dialogState is DialogState.Edit)
-                    else ""
                 }
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
