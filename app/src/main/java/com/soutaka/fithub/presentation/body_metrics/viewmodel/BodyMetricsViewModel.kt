@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.soutaka.fithub.R
 import com.soutaka.fithub.domain.model.BodyMetrics
 import com.soutaka.fithub.domain.repository.BodyMetricsRepository
 import com.soutaka.fithub.presentation.body_metrics.DialogState
@@ -26,6 +27,7 @@ class BodyMetricsViewModel @Inject constructor(
 
     var heightError by mutableStateOf(false)
     var weightError by mutableStateOf(false)
+    var weightErrorMessage: Int? by mutableStateOf(null)
 
     init {
         getBodyMetrics()
@@ -81,10 +83,58 @@ class BodyMetricsViewModel @Inject constructor(
 
 
     fun validateHeight(height: String) {
-        heightError = height.toDoubleOrNull() == null
+        val heightNum = height.toDoubleOrNull()
+
+//        数値かどうか判定
+        if (heightNum == null) {
+            heightError = true
+            heightErrorMessage = R.string.body_metrics_text_symbol
+            return
+        }
+
+//        0より小さいか判定
+        if (heightNum <= 0) {
+            heightError = true
+            heightErrorMessage = R.string.body_metrics_text_min
+            return
+        }
+
+//        500より大きいか判定
+        if (heightNum >= 500) {
+            heightError = true
+            heightErrorMessage = R.string.body_metrics_text_over
+            return
+        }
+
+        heightError = false
+        heightErrorMessage = null
     }
 
+
     fun validateWeight(weight: String) {
-        weightError = weight.toDoubleOrNull() == null
+        val weightNum = weight.toDoubleOrNull()
+
+        // 数値かどうか判定
+        if (weightNum == null) {
+            weightError = true
+            weightErrorMessage = R.string.body_metrics_text_symbol
+            return
+        }
+
+        // 0より小さいか判定
+        if (weightNum <= 0) {
+            weightError = true
+            weightErrorMessage = R.string.body_metrics_text_min
+            return
+        }
+
+        // 500より大きいか判定
+        if (weightNum >= 500) {
+            weightError = true
+            weightErrorMessage = R.string.body_metrics_text_over
+            return
+        }
+
+        weightError = false
     }
 }

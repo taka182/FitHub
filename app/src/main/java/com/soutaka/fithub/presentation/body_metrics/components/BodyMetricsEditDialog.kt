@@ -115,6 +115,8 @@ fun BodyMetricsEditDialog(
                         onClick = {
                             if (dialogState is DialogState.Edit) {
                                 viewModel.closeDialog()
+                                viewModel.validateHeight(height)
+                                viewModel.validateWeight(weight)
                                 viewModel.updateBodyMetrics(dialogState.bodyMetrics, height, weight)
                             } else {
                                 viewModel.validateHeight(height)
@@ -134,8 +136,3 @@ fun BodyMetricsEditDialog(
         }
     }
 }
-
-
-
-
-
