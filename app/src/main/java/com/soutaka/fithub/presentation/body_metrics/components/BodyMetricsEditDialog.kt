@@ -7,6 +7,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -50,7 +51,7 @@ fun BodyMetricsEditDialog(
         onDismissRequest = { viewModel.closeDialog() }) {
         Box(
             modifier = Modifier
-                .size(350.dp)
+                .size(380.dp)
                 .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(50.dp))
                 .padding(10.dp),
             contentAlignment = Alignment.Center
@@ -161,6 +162,10 @@ fun PinkLabelTextField(
                 if (isError) {
                     Text(text = stringResource(R.string.body_metrics_text))
                 }
+            },
+            trailingIcon = {
+                if (isError)
+                    Icon(imageVector = Icons.Default.Error, contentDescription = "エラーアイコン")
             },
             placeholder =
             {
