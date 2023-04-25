@@ -46,7 +46,11 @@ fun BodyMetricsEditDialog(
     val context = LocalContext.current
 
     Dialog(
-        onDismissRequest = { viewModel.closeDialog() }) {
+        onDismissRequest = {
+            viewModel.closeDialog()
+            viewModel.heightError = false
+            viewModel.weightError = false
+        }) {
         Box(
             modifier = Modifier
                 .size(380.dp)
@@ -106,6 +110,8 @@ fun BodyMetricsEditDialog(
                         modifier = Modifier.width(120.dp),
                         onClick = {
                             viewModel.closeDialog()
+                            viewModel.heightError = false
+                            viewModel.weightError = false
                         },
                     ) {
                         Icon(imageVector = Icons.Default.Close, contentDescription = "閉じる")
@@ -116,10 +122,16 @@ fun BodyMetricsEditDialog(
                         modifier = Modifier.width(120.dp),
                         onClick = {
                             if (dialogState is DialogState.Edit) {
-                                viewModel.closeDialog()
                                 viewModel.validateHeight(height)
                                 viewModel.validateWeight(weight)
-                                viewModel.updateBodyMetrics(dialogState.bodyMetrics, height, weight)
+                                if (!viewModel.heightError && !viewModel.weightError) {
+                                    viewModel.closeDialog()
+                                    viewModel.updateBodyMetrics(
+                                        dialogState.bodyMetrics,
+                                        height,
+                                        weight
+                                    )
+                                }
                             } else {
                                 viewModel.validateHeight(height)
                                 viewModel.validateWeight(weight)
