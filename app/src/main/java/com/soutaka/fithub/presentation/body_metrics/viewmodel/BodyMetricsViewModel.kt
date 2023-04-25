@@ -34,7 +34,6 @@ class BodyMetricsViewModel @Inject constructor(
     init {
         getBodyMetrics()
     }
-
     private fun getBodyMetrics() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getBodyMetrics().collect {
