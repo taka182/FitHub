@@ -8,16 +8,21 @@ import androidx.lifecycle.viewModelScope
 import com.soutaka.fithub.R
 import com.soutaka.fithub.domain.model.BodyMetrics
 import com.soutaka.fithub.domain.repository.BodyMetricsRepository
+import com.soutaka.fithub.domain.repository.UserRepository
 import com.soutaka.fithub.presentation.body_metrics.DialogState
+import com.soutaka.fithub.presentation.profile.UserProfileForm
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
 class BodyMetricsViewModel @Inject constructor(
-    private val repository: BodyMetricsRepository
+    private val repository: BodyMetricsRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
     var bodyMetrics: List<BodyMetrics> by mutableStateOf(emptyList())
         private set
@@ -31,9 +36,14 @@ class BodyMetricsViewModel @Inject constructor(
     var weightError by mutableStateOf(false)
     var weightErrorMessage: Int? by mutableStateOf(null)
 
+    private var _user: MutableStateFlow<UserProfileForm> = MutableStateFlow(UserProfileForm())
+    val user: StateFlow<UserProfileForm> = _user
+
     init {
         getBodyMetrics()
+        getUserProfile()
     }
+
     private fun getBodyMetrics() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getBodyMetrics().collect {
@@ -46,8 +56,8 @@ class BodyMetricsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val newBody = BodyMetrics(
                 id = 0,
-                height = height.toDoubleOrNull() ?: 0.0,
-                weight = weight.toDoubleOrNull() ?: 0.0,
+                height = height.toDouble(),
+                weight = weight.toDouble(),
                 createdAt = LocalDate.now(),
             )
             repository.addBodyMetrics(newBody)
@@ -62,11 +72,11 @@ class BodyMetricsViewModel @Inject constructor(
 
     fun updateBodyMetrics(bodyMetrics: BodyMetrics, height: String, weight: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val updatedBodyMetrics = bodyMetrics.copy(
-                height = height.toDoubleOrNull() ?: 0.0,
-                weight = weight.toDoubleOrNull() ?: 0.0
+            val updateBodyMetrics = bodyMetrics.copy(
+                height = height.toDouble(),
+                weight = weight.toDouble()
             )
-            repository.updateBodyMetrics(updatedBodyMetrics)
+            repository.updateBodyMetrics(updateBodyMetrics)
         }
     }
 
@@ -137,5 +147,20 @@ class BodyMetricsViewModel @Inject constructor(
         }
 
         weightError = false
+    }
+
+    fun getUserProfile() {
+        viewModelScope.launch {
+            val userProfile = userRepository.getUserProfile()
+            if (userProfile != null) {
+                _user.value = UserProfileForm(
+                    name = userProfile.name,
+                    birthDay = userProfile.birthDay.toString(),
+                    userHeight = userProfile.userHeight.toString(),
+                    goalWeight = userProfile.goalWeight.toString(),
+                    isMan = userProfile.isMan
+                )
+            }
+        }
     }
 }
