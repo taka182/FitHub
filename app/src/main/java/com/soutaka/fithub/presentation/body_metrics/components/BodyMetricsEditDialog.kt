@@ -13,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -35,7 +34,7 @@ fun BodyMetricsEditDialog(
     var height by remember {
         mutableStateOf(
             if (dialogState is DialogState.Edit) dialogState.bodyMetrics.height.toString()
-            else ""
+            else user.value.userHeight
         )
     }
     var weight by remember {
@@ -45,7 +44,6 @@ fun BodyMetricsEditDialog(
         )
     }
     val currentDate = LocalDate.now()
-    val context = LocalContext.current
 
     Dialog(
         onDismissRequest = {
@@ -86,7 +84,7 @@ fun BodyMetricsEditDialog(
                     },
                     isError = viewModel.heightError,
                     label = stringResource(R.string.height),
-                    placeholder = "170",
+                    placeholder = stringResource(R.string.height_label),
                     errorMessage = viewModel.heightErrorMessage?.let { stringResource(it) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
@@ -99,7 +97,7 @@ fun BodyMetricsEditDialog(
                     },
                     isError = viewModel.weightError,
                     label = stringResource(R.string.weight),
-                    placeholder = "65",
+                    placeholder = stringResource(R.string.weight_label),
                     errorMessage = viewModel.weightErrorMessage?.let { stringResource(it) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
