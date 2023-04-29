@@ -30,6 +30,8 @@ fun BodyMetricsEditDialog(
     viewModel: BodyMetricsViewModel = hiltViewModel(),
     dialogState: DialogState = DialogState.Close,
 ) {
+    val user = viewModel.user.collectAsState()
+
     var height by remember {
         mutableStateOf(
             if (dialogState is DialogState.Edit) dialogState.bodyMetrics.height.toString()
