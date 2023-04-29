@@ -8,7 +8,6 @@ import com.soutaka.fithub.data.local.entity.UserEntity
 
 @Dao
 interface UserDao {
-
     @Insert
     suspend fun insertUser(userEntity: UserEntity)
 
@@ -16,5 +15,5 @@ interface UserDao {
     suspend fun loadUser(): UserEntity?
 
     @Update
-    suspend fun updateUserEntity(userEntity: UserEntity)
+    suspend fun updateUser(userEntity: UserEntity)
 }
