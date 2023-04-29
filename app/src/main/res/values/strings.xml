@@ -17,4 +17,6 @@
     <string name="body_metrics_text_symbol">数値を入力してください！！</string>
     <string name="body_metrics_text_min">0より大きい値を入力してください!!</string>
     <string name="body_metrics_text_over">500より小さい値を入力してください!!</string>
+    <string name="delete_dialog_title">Warning!</string>
+    <string name="delete_dialog_text">この体重記録を削除しますか？</string>
 </resources>
