@@ -4,10 +4,9 @@ import com.soutaka.fithub.domain.model.UserProfile
 
 
 interface UserRepository {
+    suspend fun getUserProfile(): UserProfile?
 
-    fun getUserProfile(): UserProfile
+    suspend fun addUserProfile(userProfile: UserProfile)
 
-    fun addUserProfile(userProfile: UserProfile)
-
-    fun updateUserProfile(userProfile: UserProfile)
+    suspend fun updateUserProfile(userProfile: UserProfile)
 }
