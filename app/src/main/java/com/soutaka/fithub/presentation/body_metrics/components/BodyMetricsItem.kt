@@ -26,6 +26,8 @@ fun BodyMetricsItem(
     onClickDelete: (BodyMetrics) -> Unit,
 ) {
     var showDialog by remember { mutableStateOf(false) }
+    var user = viewModel.user.collectAsState()
+    var goalWeight = user.value.goalWeight
 
     OutlinedCard(
         modifier = Modifier
@@ -81,6 +83,20 @@ fun BodyMetricsItem(
                 Row {
                     Text(text = stringResource(R.string.bmi))
                     Text(text = bodyMetricsItem.bmi.toString())
+                    Spacer(modifier = Modifier.width(100.dp))
+                    Text(text = "目標体重差")
+                    if (goalWeight != "") {
+                        var weightDifference = bodyMetricsItem.weight - goalWeight.toDouble()
+                        if (weightDifference > 0) {
+                            Text(text = "+$weightDifference")
+                        } else if (weightDifference < 0) {
+                            Text(text = "$weightDifference")
+                        } else {
+                            Text(text = "$weightDifference")
+                        }
+                    } else {
+                        Text(text = " -")
+                    }
                 }
             }
         }
