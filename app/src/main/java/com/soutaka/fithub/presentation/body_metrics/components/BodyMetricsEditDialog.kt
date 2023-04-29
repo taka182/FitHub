@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
@@ -72,10 +73,17 @@ fun BodyMetricsEditDialog(
                     )
                 }
                 Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = currentDate
-                        .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
-                )
+                Row(
+                    modifier = Modifier
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.Center,
+                ) {
+                    Icon(imageVector = Icons.Default.CalendarToday, contentDescription = "カレンダー")
+                    Text(
+                        text = currentDate
+                            .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
+                    )
+                }
                 PinkLabelTextField(
                     value = height,
                     onValueChange = {
