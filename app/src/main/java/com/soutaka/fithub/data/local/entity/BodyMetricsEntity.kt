@@ -7,7 +7,7 @@ import java.time.LocalDate
 @Entity
 data class BodyMetricsEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    var height: Double,
-    var weight: Double,
-    var createdAt: LocalDate
+    val height: Double,
+    val weight: Double,
+    val createdAt: LocalDate
 )
