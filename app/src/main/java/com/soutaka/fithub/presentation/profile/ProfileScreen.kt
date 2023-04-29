@@ -3,9 +3,9 @@ package com.soutaka.fithub.presentation.profile
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,7 +30,7 @@ fun ProfileScreen(
             modifier = Modifier.padding(16.dp)
         ) {
             // 名前
-            TextField(
+            OutlinedTextField(
                 value = viewModel.user.name,
                 onValueChange = { viewModel.user = viewModel.user.copy(name = it) },
                 label = { Text("名前") },
@@ -38,7 +38,7 @@ fun ProfileScreen(
             )
 
             // 生年月日
-            TextField(
+            OutlinedTextField(
                 value = viewModel.user.birthDay,
                 onValueChange = { viewModel.user = viewModel.user.copy(birthDay = it) },
                 label = { Text("生年月日") },
@@ -47,7 +47,7 @@ fun ProfileScreen(
             )
 
             // 身長
-            TextField(
+            OutlinedTextField(
                 value = viewModel.user.userHeight,
                 onValueChange = { viewModel.user = viewModel.user.copy(userHeight = it) },
                 label = { Text("身長") },
@@ -56,7 +56,7 @@ fun ProfileScreen(
             )
             Spacer(Modifier.width(16.dp))
             // 目標体重
-            TextField(
+            OutlinedTextField(
                 value = viewModel.user.goalWeight,
                 onValueChange = { viewModel.user = viewModel.user.copy(goalWeight = it) },
                 label = { Text("目標体重") },
@@ -87,7 +87,7 @@ fun ProfileScreen(
                 Text("女性")
             }
             Button(
-                modifier = Modifier.width(120.dp),
+                modifier = Modifier.fillMaxWidth(),
                 onClick = {
                     if (viewModel.isUpdate) {
                         viewModel.updateUserProfile()
