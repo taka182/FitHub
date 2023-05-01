@@ -6,6 +6,7 @@
     <string name="height">身長(cm) </string>
     <string name="height_label">身長:170</string>
     <string name="weight">体重(kg) </string>
+    <string name="goalWeight">目標体重(kg)</string>
     <string name="weight_label">体重:65 </string>
     <string name="close_btn">Close</string>
     <string name="ok_btn">OK</string>
