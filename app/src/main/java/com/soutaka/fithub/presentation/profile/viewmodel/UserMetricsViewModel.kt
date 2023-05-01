@@ -3,8 +3,10 @@ package com.soutaka.fithub.presentation.profile.viewmodel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.soutaka.fithub.R
 import com.soutaka.fithub.domain.model.UserProfile
 import com.soutaka.fithub.domain.repository.UserRepository
 import com.soutaka.fithub.presentation.profile.UserProfileForm
@@ -19,6 +21,12 @@ class UserMetricsViewModel @Inject constructor(
 ) : ViewModel() {
     var user: UserProfileForm by mutableStateOf(UserProfileForm())
     var isUpdate = false
+
+    var heightError by mutableStateOf(false)
+    var userHeightErrorMessage: Int? by mutableStateOf(null)
+
+    var goalWeightError by mutableStateOf(false)
+    var goalWeightErrorMessage: Int? by mutableStateOf(null)
 
     init {
         getUserProfile()
@@ -69,4 +77,59 @@ class UserMetricsViewModel @Inject constructor(
             )
         }
     }
+
+    fun validateHeight(height: String) {
+        val heightNum = height.toDoubleOrNull()
+
+//        数値かどうか判定
+        if (heightNum == null) {
+            heightError = true
+            userHeightErrorMessage = R.string.body_metrics_text_symbol
+            return
+        }
+
+//        0より小さいか判定
+        if (heightNum <= 0) {
+            heightError = true
+            userHeightErrorMessage = R.string.body_metrics_text_min
+            return
+        }
+
+//        500より大きいか判定
+        if (heightNum >= 500) {
+            heightError = true
+            userHeightErrorMessage = R.string.body_metrics_text_over
+            return
+        }
+
+        heightError = false
+        userHeightErrorMessage = null
+    }
+
+    fun validateGoalWeight(goalWeight: String) {
+        val goalWeightNum = goalWeight.toDoubleOrNull()
+
+//        数値かどうか判定
+        if (goalWeightNum == null) {
+            goalWeightError = true
+            goalWeightErrorMessage = R.string.body_metrics_text_symbol
+            return
+        }
+//        0より小さいか判定
+        if (goalWeightNum < 0) {
+            goalWeightError = true
+            goalWeightErrorMessage = R.string.body_metrics_text_min
+            return
+        }
+//        500より大きいか判定
+        if (goalWeightNum >= 500) {
+            goalWeightError = true
+            goalWeightErrorMessage = R.string.body_metrics_text_over
+            return
+        }
+
+        goalWeightError = false
+        goalWeightErrorMessage = null
+    }
+
 }
