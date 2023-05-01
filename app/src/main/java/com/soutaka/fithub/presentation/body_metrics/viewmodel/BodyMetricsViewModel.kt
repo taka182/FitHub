@@ -147,6 +147,7 @@ class BodyMetricsViewModel @Inject constructor(
         }
 
         weightError = false
+        weightErrorMessage = null
     }
 
     fun getUserProfile() {
