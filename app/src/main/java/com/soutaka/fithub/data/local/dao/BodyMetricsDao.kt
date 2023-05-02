@@ -9,7 +9,7 @@ interface BodyMetricsDao {
     @Insert
     suspend fun insertBodyMetrics(bodyMetricsEntity: BodyMetricsEntity)
 
-    @Query("SELECT * FROM BodyMetricsEntity ORDER BY id desc")
+    @Query("SELECT * FROM BodyMetricsEntity ORDER BY id")
     fun loadAllBodyMetrics(): Flow<List<BodyMetricsEntity>>
 
     @Update
