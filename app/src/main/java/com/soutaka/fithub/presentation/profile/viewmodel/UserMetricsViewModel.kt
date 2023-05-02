@@ -91,21 +91,21 @@ class UserMetricsViewModel @Inject constructor(
     fun validateHeight(height: String) {
         val heightNum = height.toDoubleOrNull()
 
-//        数値かどうか判定
+        // 数値かどうか判定
         if (heightNum == null) {
             heightError = true
             userHeightErrorMessage = R.string.body_metrics_text_symbol
             return
         }
 
-//        0より小さいか判定
+        // 0より小さいか判定
         if (heightNum <= 0) {
             heightError = true
             userHeightErrorMessage = R.string.body_metrics_text_min
             return
         }
 
-//        500より大きいか判定
+        // 500より大きいか判定
         if (heightNum >= 500) {
             heightError = true
             userHeightErrorMessage = R.string.body_metrics_text_over
@@ -119,19 +119,19 @@ class UserMetricsViewModel @Inject constructor(
     fun validateGoalWeight(goalWeight: String) {
         val goalWeightNum = goalWeight.toDoubleOrNull()
 
-//        数値かどうか判定
+        // 数値かどうか判定
         if (goalWeightNum == null) {
             goalWeightError = true
             goalWeightErrorMessage = R.string.body_metrics_text_symbol
             return
         }
-//        0より小さいか判定
+        // 0より小さいか判定
         if (goalWeightNum < 0) {
             goalWeightError = true
             goalWeightErrorMessage = R.string.body_metrics_text_min
             return
         }
-//        500より大きいか判定
+        // 500より大きいか判定
         if (goalWeightNum >= 500) {
             goalWeightError = true
             goalWeightErrorMessage = R.string.body_metrics_text_over
