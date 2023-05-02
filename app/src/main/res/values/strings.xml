@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">FitHub</string>
     <string name="weight_record">体重記録</string>
-    <string name="record_add">記録登録</string>
-    <string name="record_update">記録更新</string>
+    <string name="record_add">Recording your weight</string>
+    <string name="record_update">Updating your weight</string>
     <string name="height">身長(cm) </string>
     <string name="height_label">身長:170</string>
     <string name="weight">体重(kg) </string>
@@ -13,7 +13,7 @@
     <string name="date">日付:</string>
     <string name="bmi">bmi</string>
     <string name="no_data">表示可能なデータがありません</string>
-    <string name="navigation_body_metrics_label">記録</string>
+    <string name="navigation_body_metrics_label">体重記録</string>
     <string name="navigation_profile_label">プロフィール</string>
     <string name="body_metrics_text_symbol">数値を入力してください！！</string>
     <string name="body_metrics_text_min">0より大きい値を入力してください!!</string>
@@ -28,4 +28,5 @@
     <string name="user_birth_format">yyyy-MM-ddの形式で入力してください！！</string>
     <string name="user_birth_date_error">日付が存在していません！！</string>
     <string name="user_name">名前</string>
+    <string name="target_weight_difference">目標体重差</string>
 </resources>
