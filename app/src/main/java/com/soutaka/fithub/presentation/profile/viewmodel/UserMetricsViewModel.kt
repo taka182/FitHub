@@ -43,15 +43,17 @@ class UserMetricsViewModel @Inject constructor(
     private fun getUserProfile() {
         viewModelScope.launch(Dispatchers.IO) {
             val userProfile = userRepository.getUserProfile()
-            if (userProfile != null) {
-                isUpdate = true
-                user = UserProfileForm(
-                    name = userProfile.name,
-                    birthDay = userProfile.birthDay.toString(),
-                    userHeight = userProfile.userHeight.toString(),
-                    goalWeight = userProfile.goalWeight.toString(),
-                    isMan = userProfile.isMan
-                )
+            withContext(Dispatchers.Main) {
+                if (userProfile != null) {
+                    isUpdate = true
+                    user = UserProfileForm(
+                        name = userProfile.name,
+                        birthDay = userProfile.birthDay.toString(),
+                        userHeight = userProfile.userHeight.toString(),
+                        goalWeight = userProfile.goalWeight.toString(),
+                        isMan = userProfile.isMan
+                    )
+                }
             }
         }
     }
