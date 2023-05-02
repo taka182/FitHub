@@ -30,14 +30,6 @@ fun BodyMetricsEditDialog(
     viewModel: BodyMetricsViewModel = hiltViewModel(),
     dialogState: DialogState = DialogState.Close,
 ) {
-    val user = viewModel.user.collectAsState()
-
-    var height by remember {
-        mutableStateOf(
-            if (dialogState is DialogState.Edit) dialogState.bodyMetrics.height.toString()
-            else user.value.userHeight
-        )
-    }
     var weight by remember {
         mutableStateOf(
             if (dialogState is DialogState.Edit) dialogState.bodyMetrics.weight.toString()
@@ -54,7 +46,7 @@ fun BodyMetricsEditDialog(
         }) {
         Box(
             modifier = Modifier
-                .size(380.dp)
+                .size(300.dp)
                 .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(50.dp))
                 .padding(10.dp),
             contentAlignment = Alignment.Center
@@ -84,17 +76,6 @@ fun BodyMetricsEditDialog(
                             .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
                     )
                 }
-                PinkLabelTextField(
-                    value = height,
-                    onValueChange = {
-                        height = it
-                        viewModel.validateHeight(height)
-                    },
-                    isError = viewModel.heightError,
-                    label = stringResource(R.string.height),
-                    placeholder = stringResource(R.string.height_label),
-                    errorMessage = viewModel.heightErrorMessage?.let { stringResource(it) }
-                )
                 Spacer(modifier = Modifier.height(16.dp))
                 Spacer(modifier = Modifier.width(10.dp))
                 PinkLabelTextField(
@@ -110,12 +91,11 @@ fun BodyMetricsEditDialog(
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(
-                    modifier = Modifier.padding(8.dp),
-                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly,
                 ) {
-                    Spacer(modifier = Modifier.weight(1f))
                     Button(
-                        modifier = Modifier.width(120.dp),
                         onClick = {
                             viewModel.closeDialog()
                             viewModel.heightError = false
@@ -125,27 +105,24 @@ fun BodyMetricsEditDialog(
                         Icon(imageVector = Icons.Default.Close, contentDescription = "閉じる")
                         Text(text = stringResource(R.string.close_btn))
                     }
-                    Spacer(modifier = Modifier.width(10.dp))
                     Button(
-                        modifier = Modifier.width(120.dp),
                         onClick = {
                             if (dialogState is DialogState.Edit) {
-                                viewModel.validateHeight(height)
+
                                 viewModel.validateWeight(weight)
                                 if (!viewModel.heightError && !viewModel.weightError) {
                                     viewModel.closeDialog()
                                     viewModel.updateBodyMetrics(
                                         dialogState.bodyMetrics,
-                                        height,
                                         weight
                                     )
                                 }
                             } else {
-                                viewModel.validateHeight(height)
+
                                 viewModel.validateWeight(weight)
                                 if (!viewModel.heightError && !viewModel.weightError) {
                                     viewModel.closeDialog()
-                                    viewModel.addBodyMetrics(height, weight)
+                                    viewModel.addBodyMetrics(weight)
                                 }
                             }
                         },
