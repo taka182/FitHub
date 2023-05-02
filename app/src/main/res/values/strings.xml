@@ -20,4 +20,12 @@
     <string name="body_metrics_text_over">500より小さい値を入力してください!!</string>
     <string name="delete_dialog_title">Warning!</string>
     <string name="delete_dialog_text">この体重記録を削除しますか？</string>
+    <string name="user_text_symbol">名前を入力してください！！</string>
+    <string name="user_text_number">数値が含まれています！！</string>
+    <string name="user_text_space">スペースが含まれています！！</string>
+    <string name="user_birth_text_symbol">生年月日を入力してください！！</string>
+    <string name="user_birth_label">生年月日(yyyy-MM-dd)</string>
+    <string name="user_birth_format">yyyy-MM-ddの形式で入力してください！！</string>
+    <string name="user_birth_date_error">日付が存在していません！！</string>
+    <string name="user_name">名前</string>
 </resources>
