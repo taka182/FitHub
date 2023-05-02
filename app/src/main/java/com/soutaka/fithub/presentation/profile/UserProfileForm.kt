@@ -5,5 +5,5 @@ data class UserProfileForm(
     var birthDay: String = "",
     var userHeight: String = "",
     var goalWeight: String = "",
-    var isMan: Boolean = true,
+    var isMan: Boolean = false,
 )
