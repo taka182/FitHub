@@ -46,17 +46,19 @@ class BodyMetricsViewModel @Inject constructor(
 
     private fun getBodyMetrics() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getBodyMetrics().collect {
-                bodyMetrics = it
+            repository.getBodyMetrics().collect { listItem ->
+                bodyMetrics = listItem.sortedByDescending { it.id }
+                getUserProfile()
             }
         }
     }
 
-    fun addBodyMetrics(height: String, weight: String) {
+    fun addBodyMetrics(weight: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            val userProfile = userRepository.getUserProfile()
             val newBody = BodyMetrics(
                 id = 0,
-                height = height.toDouble(),
+                height = userProfile?.userHeight ?: 0.0,
                 weight = weight.toDouble(),
                 createdAt = LocalDate.now(),
             )
@@ -70,10 +72,9 @@ class BodyMetricsViewModel @Inject constructor(
         }
     }
 
-    fun updateBodyMetrics(bodyMetrics: BodyMetrics, height: String, weight: String) {
+    fun updateBodyMetrics(bodyMetrics: BodyMetrics, weight: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val updateBodyMetrics = bodyMetrics.copy(
-                height = height.toDouble(),
                 weight = weight.toDouble()
             )
             repository.updateBodyMetrics(updateBodyMetrics)
