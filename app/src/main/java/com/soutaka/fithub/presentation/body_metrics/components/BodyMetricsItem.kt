@@ -3,6 +3,9 @@ package com.soutaka.fithub.presentation.body_metrics.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.East
+import androidx.compose.material.icons.filled.North
+import androidx.compose.material.icons.filled.South
 import androidx.compose.material.icons.filled.WaterDrop
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -27,7 +30,6 @@ fun BodyMetricsItem(
 ) {
     var showDialog by remember { mutableStateOf(false) }
     val user = viewModel.user.collectAsState()
-    val goalWeight = user.value.goalWeight
 
     OutlinedCard(
         modifier = Modifier
@@ -45,48 +47,74 @@ fun BodyMetricsItem(
                     .padding(16.dp),
             ) {
                 Row(
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = stringResource(R.string.date) + bodyMetricsItem.createdAt.format(
-                            DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
-                        )
-                    )
-                    Spacer(modifier = Modifier.width(150.dp))
-                    IconButton(onClick = {
-                        showDialog = true
-//                        onClickDelete(bodyMetricsItem)
-                    }) {
-                        Icon(imageVector = Icons.Default.WaterDrop, contentDescription = "削除")
+
+                    val currentItemIndex = viewModel.bodyMetrics.indexOf(bodyMetricsItem)
+                    if (currentItemIndex != viewModel.bodyMetrics.lastIndex) {
+                        val prevItem = viewModel.bodyMetrics[currentItemIndex + 1]
+                        if (viewModel.bodyMetrics[currentItemIndex].weight > prevItem.weight) {
+                            Icon(imageVector = Icons.Default.North, contentDescription = "増量")
+                        } else if (viewModel.bodyMetrics[currentItemIndex].weight < prevItem.weight) {
+                            Icon(imageVector = Icons.Default.South, contentDescription = "減量")
+                        } else {
+                            Icon(imageVector = Icons.Default.East, contentDescription = "変化なし")
+                        }
                     }
-                    if (showDialog) {
-                        BodyMetricsDeleteDialog(
-                            bodyMetricsItem = bodyMetricsItem,
-                            onClickDelete = onClickDelete,
-                            onDismissRequest = { showDialog = false }
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+
+                    ) {
+                        Text(
+                            text = stringResource(R.string.date) + bodyMetricsItem.createdAt.format(
+                                DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+                            )
                         )
+                        Spacer(modifier = Modifier.width(150.dp))
+                        IconButton(onClick = {
+                            showDialog = true
+                        }) {
+                            Icon(imageVector = Icons.Default.WaterDrop, contentDescription = "削除")
+                        }
+                        if (showDialog) {
+                            BodyMetricsDeleteDialog(
+                                bodyMetricsItem = bodyMetricsItem,
+                                onClickDelete = onClickDelete,
+                                onDismissRequest = { showDialog = false }
+                            )
+                        }
                     }
                 }
                 Divider(modifier = Modifier.padding(vertical = 7.dp))
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     Text(text = stringResource(R.string.height))
                     Text(text = bodyMetricsItem.height.toString())
-                    Spacer(modifier = Modifier.width(80.dp))
                     Text(text = stringResource(R.string.weight))
                     Text(text = bodyMetricsItem.weight.toString())
                 }
                 Spacer(modifier = Modifier.height(20.dp))
-                Row {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
                     Text(text = stringResource(R.string.bmi))
-                    Text(text = bodyMetricsItem.bmi.toString())
-                    Spacer(modifier = Modifier.width(100.dp))
-                    Text(text = "目標体重差")
-                    if (goalWeight != "") {
-                        val weightDifference = bodyMetricsItem.weight - goalWeight.toDouble()
+                    if (bodyMetricsItem.height != 0.0) {
+                        Text(text = bodyMetricsItem.bmi.toString())
+                    } else {
+                        Text(text = "-")
+                    }
+                    Text(text = stringResource(R.string.target_weight_difference))
+                    if (user.value.goalWeight != "") {
+                        val weightDifference =
+                            bodyMetricsItem.weight - user.value.goalWeight.toDouble()
                         if (weightDifference > 0) {
                             Text(text = "+$weightDifference")
                         } else if (weightDifference < 0) {
