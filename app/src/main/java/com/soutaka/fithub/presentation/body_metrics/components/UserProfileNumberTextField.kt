@@ -19,22 +19,22 @@ fun UserProfileNumberTextField(
     isError: Boolean,
     errorMessage: String? = null
 ) {
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            label = { Text(label) },
-            isError = isError,
-            supportingText = {
-                if (isError) {
-                    Text(text = errorMessage ?: "")
-                }
-            },
-            trailingIcon = {
-                if (isError)
-                    Icon(imageVector = Icons.Default.Error, contentDescription = "エラーアイコン")
-            },
-            modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            singleLine = true,
-        )
-    }
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(label) },
+        isError = isError,
+        supportingText = {
+            if (isError) {
+                Text(text = errorMessage ?: "")
+            }
+        },
+        trailingIcon = {
+            if (isError)
+                Icon(imageVector = Icons.Default.Error, contentDescription = "エラーアイコン")
+        },
+        modifier = Modifier.fillMaxWidth(),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        singleLine = true,
+    )
+}
