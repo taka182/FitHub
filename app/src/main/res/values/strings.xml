@@ -29,4 +29,11 @@
     <string name="user_birth_date_error">日付が存在していません！！</string>
     <string name="user_name">名前</string>
     <string name="target_weight_difference">目標体重差</string>
+    <string name="user_profile_text">プロフィール</string>
+    <string name="user_gender_text">性別</string>
+    <string name="user_man_text">男性</string>
+    <string name="user_woman_text">女性</string>
+    <string name="user_profile_update_snackbar">"ユーザー情報を更新しました!"</string>
+    <string name="user_profile_add_snackbar">"ユーザー情報を新規追加しました!"</string>
+
 </resources>
