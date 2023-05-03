@@ -11,8 +11,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.soutaka.fithub.R
 import com.soutaka.fithub.presentation.body_metrics.components.UserProfileNumberTextField
@@ -29,7 +31,7 @@ fun ProfileScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState)},
+        snackbarHost = { SnackbarHost(snackbarHostState) },
     ) {
         Column(
             modifier = Modifier
@@ -41,7 +43,7 @@ fun ProfileScreen(
                 modifier = Modifier.padding(16.dp),
 
                 ) {
-                Text(text = "プロフィール設定")
+                Text(text = stringResource(R.string.user_profile_text), fontSize = 30.sp)
                 Spacer(Modifier.padding(8.dp))
                 // 名前
                 UserProfileTextField(
@@ -57,7 +59,7 @@ fun ProfileScreen(
                 )
                 Spacer(Modifier.padding(8.dp))
 // 性別
-                Text("性別")
+                Text(stringResource(R.string.user_gender_text))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -67,19 +69,25 @@ fun ProfileScreen(
                         selected = !viewModel.user.isMan,
                         onClick = {
                             viewModel.user = viewModel.user.copy(isMan = false)
-                        }
+                        },
+                        colors = RadioButtonDefaults.colors(
+                            selectedColor = Color.Blue,
+                        )
                     )
                     Icon(imageVector = Icons.Default.Man, contentDescription = "男性")
-                    Text("男性")
+                    Text(stringResource(R.string.user_man_text))
                     Spacer(Modifier.width(16.dp))
                     RadioButton(
                         selected = viewModel.user.isMan,
                         onClick = {
                             viewModel.user = viewModel.user.copy(isMan = true)
-                        }
+                        },
+                        colors = RadioButtonDefaults.colors(
+                            selectedColor = Color.Red
+                        )
                     )
                     Icon(imageVector = Icons.Default.Woman, contentDescription = "女性")
-                    Text("女性")
+                    Text(stringResource(R.string.user_woman_text))
                 }
                 Spacer(Modifier.padding(8.dp))
                 // 生年月日
@@ -122,6 +130,8 @@ fun ProfileScreen(
                     errorMessage = viewModel.goalWeightErrorMessage?.let { stringResource(it) }
                 )
                 Spacer(Modifier.padding(8.dp))
+                val updateSnackbar = stringResource(R.string.user_profile_update_snackbar)
+                val addSnackbar = stringResource(R.string.user_profile_add_snackbar)
                 Button(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
@@ -133,12 +143,12 @@ fun ProfileScreen(
                             if (viewModel.isUpdate) {
                                 viewModel.updateUserProfile()
                                 scope.launch {
-                                    snackbarHostState.showSnackbar("ユーザー情報を更新しました!")
+                                    snackbarHostState.showSnackbar(updateSnackbar)
                                 }
                             } else {
                                 viewModel.addUserProfile()
                                 scope.launch {
-                                    snackbarHostState.showSnackbar("ユーザー情報を新規追加しました!")
+                                    snackbarHostState.showSnackbar(addSnackbar)
                                 }
                             }
                         }
