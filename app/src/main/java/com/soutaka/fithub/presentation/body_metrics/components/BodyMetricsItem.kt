@@ -114,7 +114,8 @@ fun BodyMetricsItem(
                     Text(text = stringResource(R.string.target_weight_difference))
                     if (user.value.goalWeight != "") {
                         val weightDifference =
-                            bodyMetricsItem.weight - user.value.goalWeight.toDouble()
+                            Math.round((bodyMetricsItem.weight - user.value.goalWeight.toDouble()) * 100.0) / 100.0
+
                         if (weightDifference > 0) {
                             Text(text = "+$weightDifference")
                         } else if (weightDifference < 0) {
@@ -123,7 +124,7 @@ fun BodyMetricsItem(
                             Text(text = "$weightDifference")
                         }
                     } else {
-                        Text(text = " -")
+                        Text(text = "-")
                     }
                 }
             }
